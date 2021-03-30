@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bonjour BlogController!{% endblock %}
+
+{% block body %}
+<!-- Permet de créer trois articles dans VS Code : (article>h2{Titre de l'article}+div.metadata{Ecrit le 28/03/2021 à 19h33 dans la catégorie Sport}+div.content>img+(p>lorem15)*2+a.btn.btn-primary{Lire la suite})*3 -->
+<section class="articles">
+
+    <!-- On crée une boucle for pour récupére les articles -->
+    {% for article in articles %}
+    <article>
+        <!-- La variable "title" de l'objet "article" est accessible à l'intérieur de la boucle -->
+        <h2>{{ article.title }}</h2>
+        <!-- En twig, on va utilser un filtre pour afficher la date "date('d/m/Y')" et pour afficher l'heure "date('H:i')" -->
+        <div class="metadata">Ecrit le {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i')}} dans la catégorie Sport</div>
+        <div class="content">
+            <!-- On va interpoler -->
+            <img src={{ article.image }} alt="">
+            <p>{{ article.content | raw }}</p>
+            <!-- La fonction path() prend deux paramètres (un obligatoire et un facultatif) -->
+            <!-- Le paramètre obligatoire est le nom (name) de la route -->
+            <!-- Le second paramètre est un objet javascript qu'on va intégrer à cette Route -->
+            <!-- Dans BlogController.php, la Route demande l'id : @Route("/blog/{id}", name="blog_show") -->
+            <a href="{{ path('blog_show', {'id': article.id }) }}" class="btn btn-primary">Lire la suite</a>
+        </div>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

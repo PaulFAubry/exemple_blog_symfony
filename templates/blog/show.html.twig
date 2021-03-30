@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<!-- Permet de créer trois articles : (article>h2{Titre de l'article}+div.metadata{Ecrit le 28/03/2021 à 19h33 dans la catégorie Sport}+div.content>img+(p>lorem15)*2+a.btn.btn-primary{Lire la suite})*3 -->
+
+	<article>
+		<h2>{{ article.title }}</h2>
+		<div class="metadata">Ecrit le
+			{{ article.createdAt | date('d/m/Y') }}
+			à
+			{{ article.createdAt | date('H:i')}}
+			dans la catégorie Sport</div>
+		<div class="content">
+			<img src={{ article.image }} alt="">
+			<p>{{ article.content | raw }}</p>
+		</div>
+	</article>
+
+{% endblock %}
